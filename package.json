@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "@reduxjs/toolkit": "^2.2.7",
+    "prop-types": "^15.8.1",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-redux": "^9.1.2",
@@ -37,5 +38,6 @@
     "tailwindcss": "^3.4.7",
     "vite": "^5.3.4",
     "vite-plugin-mock": "^3.0.2"
-  }
+  },
+  "proxy": "https://live.devnimble.com"
 }
