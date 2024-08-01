@@ -1,7 +1,8 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 
 const API_TOKEN = import.meta.env.VITE_API_TOKEN
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5173/api/v1/'
+// const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5173/api/v1/'
+const API_BASE_URL = 'https://cors-anywhere.herokuapp.com/https://live.devnimble.com/api/v1/'
 
 export const apiSlice = createApi({
   reducerPath: 'api',
