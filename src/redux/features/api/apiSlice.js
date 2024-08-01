@@ -11,6 +11,8 @@ export const apiSlice = createApi({
       if (API_TOKEN) {
         headers.set('Authorization', `Bearer ${API_TOKEN}`)
       }
+      headers.set('DNT', '1') // Add the DNT header if necessary
+      headers.set('Referer', 'https://nimble-contacts.vercel.app/')
       return headers
     },
   }),
