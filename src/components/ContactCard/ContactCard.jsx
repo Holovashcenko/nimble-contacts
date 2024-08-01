@@ -6,7 +6,7 @@ const ContactCard = ({ contact, onDelete }) => {
 
   const handleDelete = async () => {
     try {
-      await deleteContact(contact.id)
+      await deleteContact(contact.id).unwrap()
       onDelete()
     } catch (error) {
       console.error('Failed to delete the contact: ', error)
@@ -14,7 +14,7 @@ const ContactCard = ({ contact, onDelete }) => {
   }
 
   return (
-    <div className="relative flex items-center p-4 border-b bg-white rounded-lg shadow">
+    <div className="relative flex items-center p-4 border-b bg-white rounded-lg shadow m-4">
       <button
         onClick={handleDelete}
         className="absolute top-2 right-2 flex items-center justify-center w-8 h-8 bg-red-500 text-white rounded-full hover:bg-red-600"
