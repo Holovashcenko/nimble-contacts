@@ -2,7 +2,6 @@ import { useState } from 'react'
 import CreateContactForm from '../components/CreateContactForm/CreateContactForm'
 import ContactCard from '../components/ContactCard/ContactCard'
 import { useGetContactsQuery } from '../redux/features/api/apiSlice'
-import { Link } from 'react-router-dom'
 
 const Contacts = () => {
   const [sort, setSort] = useState('created:desc')
@@ -39,9 +38,7 @@ const Contacts = () => {
 
         <ul className="mt-4 space-y-4">
           {contacts.map((contact, idx) => (
-            <Link to={`/contact/${contact.id}`} key={idx}>
-              <ContactCard key={idx} contact={contact} onDelete={() => refetch()} />
-            </Link>
+            <ContactCard key={idx} contact={contact} onDelete={() => refetch()} />
           ))}
         </ul>
       </div>

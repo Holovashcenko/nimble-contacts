@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types'
 import { useDeleteContactMutation } from '../../redux/features/api/apiSlice'
+import { Link } from 'react-router-dom'
 
 const ContactCard = ({ contact, onDelete }) => {
   const [deleteContact] = useDeleteContactMutation()
@@ -29,9 +30,11 @@ const ContactCard = ({ contact, onDelete }) => {
         className="w-16 h-16 rounded-full mr-4"
       />
       <div className="flex-1">
-        <p className="font-bold">
-          {contact.fields['first name'][0].value} {contact.fields['last name'][0].value}
-        </p>
+        <Link to={`/contact/${contact.id}`}>
+          <p className="font-bold">
+            {contact.fields['first name'][0].value} {contact.fields['last name'][0].value}
+          </p>
+        </Link>
         <p>{contact.fields.email[0].value}</p>
         <div className="mt-2">
           {contact.tags2.length > 0 ? (
