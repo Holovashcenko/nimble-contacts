@@ -5,6 +5,10 @@ import { Link } from 'react-router-dom'
 const ContactCard = ({ contact, onDelete }) => {
   const [deleteContact] = useDeleteContactMutation()
 
+  if (!contact) {
+    return <div>No contact data available</div>
+  }
+
   const handleDelete = async () => {
     try {
       await deleteContact(contact.id).unwrap()
@@ -13,6 +17,10 @@ const ContactCard = ({ contact, onDelete }) => {
       console.error('Failed to delete the contact: ', error)
     }
   }
+
+  const firstName = contact.fields['first name']?.[0]?.value || 'No First Name'
+  const lastName = contact.fields['last name']?.[0]?.value || 'No Last Name'
+  const email = contact.fields.email?.[0]?.value || 'No Email'
 
   return (
     <div className="relative flex items-center p-4 border-b bg-white rounded-lg shadow m-4">
@@ -24,20 +32,16 @@ const ContactCard = ({ contact, onDelete }) => {
         <span className="material-icons">delete</span>
       </button>
 
-      <img
-        src={contact.avatar_url}
-        alt={`${contact.fields['first name'][0].value} ${contact.fields['last name'][0].value}`}
-        className="w-16 h-16 rounded-full mr-4"
-      />
+      <img src={contact.avatar_url} alt={`${firstName} ${lastName}`} className="w-16 h-16 rounded-full mr-4" />
       <div className="flex-1">
         <Link to={`/contact/${contact.id}`}>
           <p className="font-bold">
-            {contact.fields['first name'][0].value} {contact.fields['last name'][0].value}
+            {firstName} {lastName}
           </p>
         </Link>
-        <p>{contact.fields.email[0].value}</p>
+        <p>{email}</p>
         <div className="mt-2">
-          {contact.tags2.length > 0 ? (
+          {contact.tags2?.length > 0 ? (
             contact.tags2.map((tag) => (
               <span key={tag} className="bg-blue-200 text-blue-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded">
                 {tag}
@@ -61,19 +65,19 @@ ContactCard.propTypes = {
         PropTypes.shape({
           value: PropTypes.string.isRequired,
         })
-      ).isRequired,
+      ),
       'last name': PropTypes.arrayOf(
         PropTypes.shape({
           value: PropTypes.string.isRequired,
         })
-      ).isRequired,
+      ),
       email: PropTypes.arrayOf(
         PropTypes.shape({
           value: PropTypes.string.isRequired,
         })
-      ).isRequired,
-    }).isRequired,
-    tags2: PropTypes.arrayOf(PropTypes.string).isRequired,
+      ),
+    }),
+    tags2: PropTypes.arrayOf(PropTypes.string),
   }).isRequired,
   onDelete: PropTypes.func.isRequired,
 }
