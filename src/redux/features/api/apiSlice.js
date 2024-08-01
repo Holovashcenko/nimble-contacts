@@ -5,7 +5,7 @@ const API_TOKEN = import.meta.env.VITE_API_TOKEN
 export const apiSlice = createApi({
   reducerPath: 'api',
   baseQuery: fetchBaseQuery({
-    baseUrl: '',
+    baseUrl: 'api/v1/',
     prepareHeaders: (headers) => {
       if (API_TOKEN) {
         headers.set('Authorization', `Bearer ${API_TOKEN}`)
@@ -13,17 +13,25 @@ export const apiSlice = createApi({
       return headers
     },
   }),
+
   endpoints: (builder) => ({
     getContacts: builder.query({
       query: ({ sort }) => ({
-        url: 'api/v1/contacts',
+        url: 'contacts',
         params: {
           sort,
         },
       }),
       transformResponse: (response) => response.resources,
     }),
+
+    deleteContact: builder.mutation({
+      query: (contactId) => ({
+        url: `contact/${contactId}`,
+        method: 'DELETE',
+      }),
+    }),
   }),
 })
 
-export const { useGetContactsQuery } = apiSlice
+export const { useGetContactsQuery, useDeleteContactMutation } = apiSlice
