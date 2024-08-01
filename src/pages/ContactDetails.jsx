@@ -1,15 +1,20 @@
-import { useParams } from 'react-router-dom'
+import { useParams, useNavigate } from 'react-router-dom'
 import { useGetContactQuery } from '../redux/features/api/apiSlice'
+import AddTagsForm from '../components/AddTagsForm/AddTagsForm'
 
 const ContactDetails = () => {
   const { id } = useParams()
-  const { data: contact, error, isLoading } = useGetContactQuery(id)
+  const navigate = useNavigate()
+  const { data: contact, error, isLoading, refetch } = useGetContactQuery(id)
 
   if (isLoading) return <div className="p-4">Loading...</div>
   if (error) return <div className="p-4 text-red-500">Error: {error.message}</div>
 
   return (
     <div className="p-4">
+      <button onClick={() => navigate('/')} className="mb-4 text-blue-500 hover:text-blue-700">
+        &larr; Back
+      </button>
       <h1 className="text-2xl font-bold">Contact Details</h1>
       <div className="flex items-center mt-4">
         <img
@@ -34,6 +39,9 @@ const ContactDetails = () => {
             )}
           </div>
         </div>
+      </div>
+      <div className="mt-8">
+        <AddTagsForm oldTags={contact.tags2} onTagsUpdated={() => refetch()} />
       </div>
     </div>
   )
