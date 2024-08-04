@@ -40,7 +40,7 @@ const ContactCard = ({ contact, onDelete }) => {
           </p>
         </Link>
         <p>{email}</p>
-        <div className="mt-2">
+        <div className="mt-2 flex flex-wrap gap-2">
           {contact.tags2?.length > 0 ? (
             contact.tags2.map((tag) => (
               <span key={tag} className="bg-blue-200 text-blue-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded">
